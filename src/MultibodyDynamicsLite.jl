@@ -1,4 +1,5 @@
 module MultibodyDynamicsLite
+using StaticArrays
 
 export Body6D, RevoluteJoint, assemble, step_euler!
 
