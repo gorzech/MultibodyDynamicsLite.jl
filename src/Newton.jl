@@ -1,3 +1,5 @@
+export newton
+
 """
     newton(f, dfdx, x0, tol; maxiter=100) → (root, n_iters)
 
