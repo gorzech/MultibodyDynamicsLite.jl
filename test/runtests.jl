@@ -5,3 +5,4 @@ using LinearAlgebra
 include("AbstractConstraintsTests.jl")
 include("BodyTests.jl")
 include("StateTests.jl")
+include("NewtonTests.jl")
