@@ -2,10 +2,8 @@ using MultibodyDynamicsLite
 using Test
 
 @testset "MultibodyDynamicsLite.jl" begin
-    # Write your tests here.
 
-    @testset "step!" begin
-        # dummy unit test to keep CI green
-        @test true
+    @testset "Body constructor" begin
+        @test_nowarn b1 = Body([1.0, 2.0, 3.0], [0.0, 0.0, 0.0, 1.0])
     end
 end
