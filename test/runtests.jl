@@ -4,4 +4,5 @@ using LinearAlgebra
 
 include("AbstractConstraintsTests.jl")
 include("BodyTests.jl")
+include("MultibodySystemTests.jl")
 include("StateTests.jl")
