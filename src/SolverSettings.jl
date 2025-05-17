@@ -7,10 +7,3 @@ Base.@kwdef struct SolverSettings
     max_tolerance::Float64 = 1e-6
     max_iterations::Int = 100
 end
-
-
-
-
-
-
-
