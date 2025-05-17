@@ -41,5 +41,9 @@ function newton(f::Function, dfdx::Function, x0::Float64, tol::Float64; maxiter:
 end
 
 function newton(f::Function, dfdx::Function, x0::Float64)
-    newton(f, dfdx, x0, 1e-10)
+    return newton(f, dfdx, x0, 1e-10)
+end
+
+function newton(f::Function, dfdx::Function, x0::Float64, settings::SolverSettings)
+    return newton(f, dfdx, x0, settings.max_tolerance, maxiter = settings.max_iterations)
 end
