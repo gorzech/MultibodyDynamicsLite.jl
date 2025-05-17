@@ -2,6 +2,8 @@ using MultibodyDynamicsLite
 using Test
 
 include("SolverSettingsTests.jl")
+include("StateTests.jl")
+include("test_AbstractConstraints.jl")
 
 @testset "MultibodyDynamicsLite.jl" begin
 

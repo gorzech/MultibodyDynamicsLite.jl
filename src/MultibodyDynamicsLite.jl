@@ -2,8 +2,11 @@ module MultibodyDynamicsLite
 using LinearAlgebra
 
 include("SolverSettings.jl")
+include("State.jl")
 
-export SolverSettings, Body
+export Body
+
+include("AbstractConstraints.jl")
 
 struct Body
     r::Vector{Float64}   # position x y z
