@@ -6,6 +6,7 @@ include("State.jl")
 export Body
 
 include("AbstractConstraints.jl")
+include("MultibodySystem.jl")
 
 struct Body
     r::Vector{Float64}   # position x y z

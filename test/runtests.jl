@@ -1,6 +1,7 @@
 using MultibodyDynamicsLite
 using Test
 
+include("MultibodySystemTests.jl")
 include("test_AbstractConstraints.jl")
 include("StateTests.jl")
 
