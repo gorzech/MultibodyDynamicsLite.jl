@@ -1,9 +1,15 @@
 include("AbstractConstraints.jl")
+include("Body.jl")
 
 export MultibodySystem
 
-Base.@kwdef struct MultibodySystem
-    bodies::Vector{Body} = []
-    kinematic_contstraints::Vector{KinematicConstraint} = []
-    driving_constraints::Vector{DrivingConstraint} = []
+struct MultibodySystem
+    name::String
+    bodies::Vector{Body}
+    kinematic_contstraints::Vector{KinematicConstraint}
+    driving_constraints::Vector{DrivingConstraint}
+
+    function MultibodySystem(name = "")
+        new(name, [], [], [])
+    end
 end
