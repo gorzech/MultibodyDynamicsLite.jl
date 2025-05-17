@@ -17,3 +17,10 @@ end
     @test init_state(bodies).q[6] == 0.0
     @test init_state(bodies).q[7] == 0.7071067811865476
 end
+
+@testset "Testing get_index function" begin
+    b1 = Body([1.0, 2.0, 3.0], [2.0, 0.0, 0.0, 0.0])
+    b2 = Body([4.3, -1.0, 2.0], [2.0, 0.0, 0.0, 0.0])
+    bodies = [b1, b2]
+    @test get_index(bodies, b2) == 2
+end
