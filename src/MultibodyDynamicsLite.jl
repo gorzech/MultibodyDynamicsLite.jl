@@ -1,5 +1,6 @@
 module MultibodyDynamicsLite
 using LinearAlgebra
+
 include("State.jl")
 
 export Body
