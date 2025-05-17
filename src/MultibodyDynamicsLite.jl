@@ -1,7 +1,9 @@
 module MultibodyDynamicsLite
 using LinearAlgebra
 
-export Body
+include("SolverSettings.jl")
+
+export SolverSettings, Body
 
 struct Body
     r::Vector{Float64}   # position x y z
