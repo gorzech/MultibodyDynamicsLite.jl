@@ -1,7 +1,8 @@
 module MultibodyDynamicsLite
 using LinearAlgebra
 
-include("State.jl")
+include("AbstractConstraints.jl")
 include("Body.jl")
+include("State.jl")
 
 end
