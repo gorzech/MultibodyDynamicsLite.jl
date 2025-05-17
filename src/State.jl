@@ -36,5 +36,5 @@ function get_index(body_pile::Vector{Body}, body::Body)
     # Find all matching objects
     list_of_matching_bodies = find(body, body_pile)
     # Return the first one (should be the only one)
-    return (list_of_matching_bodies[1]-1)*ove_num:(list_of_matching_bodies[1]-1)*ove_num+7
+    return list_of_matching_bodies[1]
 end
