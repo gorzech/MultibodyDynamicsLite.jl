@@ -1,6 +1,6 @@
 module MultibodyDynamicsLite
 using LinearAlgebra
 
-include('Body/jl')
+include("Body.jl")
 
 end

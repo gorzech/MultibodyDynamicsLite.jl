@@ -1,6 +1,3 @@
-module MultibodyDynamicsLite
-using LinearAlgebra
-
 export Body
 
 struct Body
@@ -8,7 +5,9 @@ struct Body
     e::Vector{Float64}   # unit quaternion e0 ex ey ez
 end
 
-
-
-
+function Body()
+    Body([0.0, 0.0, 0.0] , [0.0, 0.0, 0.0, 0.0])
 end
+
+
+# end
