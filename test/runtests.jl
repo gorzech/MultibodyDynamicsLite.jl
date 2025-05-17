@@ -8,4 +8,4 @@ include("StateTests.jl")
 
 end
 
-include("body.jl")
+include("BodyTests.jl")
