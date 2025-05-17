@@ -3,6 +3,7 @@ using Test
 using LinearAlgebra
 
 @testset "MultibodyDynamicsLite.jl" begin
-include("body.jl")
+
 end
 
+include("body.jl")
