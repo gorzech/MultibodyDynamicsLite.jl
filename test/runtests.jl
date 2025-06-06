@@ -8,3 +8,5 @@ include("MultibodySystemTests.jl")
 include("SolverSettingsTests.jl")
 include("StateTests.jl")
 include("SystemTests.jl")
+include("Sys_functionsTests.jl")
+

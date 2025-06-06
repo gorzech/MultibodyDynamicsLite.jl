@@ -7,5 +7,8 @@ include("MultibodySystem.jl")
 include("SolverSettings.jl")
 include("State.jl")
 include("System.jl")
+include("Sys_functions.jl")
+
+
 
 end
