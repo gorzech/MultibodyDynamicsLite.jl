@@ -13,3 +13,11 @@ end
 function constraint(c::FixedConstraint, state::State)
     return [state.q[c.global_index] - c.value]
 end
+
+constraint_num(::FixedConstraint) = 1
+
+function constraint_jacobian(c::FixedConstraint, state::State)
+    jacobian = zeros(1, length(state.q))
+    jacobian[1, c.global_index] = 1.0
+    return jacobian
+end

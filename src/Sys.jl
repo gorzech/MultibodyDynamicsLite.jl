@@ -1,4 +1,4 @@
-export System, make_sys, add_body!, add_constraint!, set_solver_settings!, constraint
+export System, make_sys, add_body!, add_constraint!, set_solver_settings!, constraint, constraint_jacobian
 
 
 mutable struct System
@@ -46,17 +46,27 @@ function constraint(sys::System, state::State)
     return result
 end
 
-# function constraint_jacobian(sys::System)
+function constraint_jacobian(sys::System, state::State)
+    equation_count = 0
+    if !isempty(sys.mbs.kinematic_contstraints)
+        equation_count += sum(constraint_num(c) for c in sys.mbs.kinematic_contstraints)
+    end
+    if !isempty(sys.mbs.driving_constraints)
+        equation_count += sum(constraint_num(c) for c in sys.mbs.driving_constraints)
+    end
 
+    jacobian = zeros(equation_count, length(state.q))
+    offset = 0
+    for c in sys.mbs.kinematic_contstraints
+        n = constraint_num(c)
+        jacobian[offset .+ (1:n), :] = constraint_jacobian(c, state)
+        offset += n
+    end
 
-#     F = begin
-        
-#     end
-
-
-#     ForwardDiff.jacobian(
-#         q -> constraint(sys, State(q)),
-#         sys.state.q
-#     )
-
-# end
+    for c in sys.mbs.driving_constraints
+        n = constraint_num(c)
+        jacobian[offset .+ (1:n), :] = constraint_jacobian(c, state)
+        offset += n
+    end
+    return jacobian
+end
