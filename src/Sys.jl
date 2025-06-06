@@ -1,9 +1,9 @@
-export System, make_sys, add_body!, add_constraint!, set_sovler_settings!, constraint
+export System, make_sys, add_body!, add_constraint!, set_solver_settings!, constraint
 
 
 mutable struct System
     mbs::MultibodySystem
-    state::State
+    init_state::State
     solver_settings::SolverSettings
 end
 
@@ -16,7 +16,7 @@ end
 
 function add_body!(sys::System, body::Body)
     push!(sys.mbs.bodies, body)
-    sys.state = init_state(sys.mbs.bodies)
+    sys.init_state = init_state(sys.mbs.bodies)
     return sys
 end
 
@@ -35,13 +35,28 @@ function set_solver_settings!(sys::System, settings::SolverSettings)
     return sys
 end
 
-function constraint(sys::System)
+function constraint(sys::System, state::State)
     result = Float64[]
     for c in sys.mbs.kinematic_contstraints
-        push!(result, constraint(c, sys.state))
+        append!(result, constraint(c, state))
     end
     for c in sys.mbs.driving_constraints
-        push!(result, constraint(c, sys.state))
+        append!(result, constraint(c, state))
     end
     return result
 end
+
+# function constraint_jacobian(sys::System)
+
+
+#     F = begin
+        
+#     end
+
+
+#     ForwardDiff.jacobian(
+#         q -> constraint(sys, State(q)),
+#         sys.state.q
+#     )
+
+# end

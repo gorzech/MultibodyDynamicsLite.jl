@@ -1,4 +1,5 @@
 module MultibodyDynamicsLite
+using ForwardDiff
 using LinearAlgebra
 
 include("AbstractConstraints.jl")
