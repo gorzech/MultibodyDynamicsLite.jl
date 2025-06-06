@@ -5,7 +5,7 @@ include("State.jl")
 
 export System, make_sys, add_body!, add_constraint!, set_solver_settings
 
-struct System
+mutable struct System
     mbs::MultibodySystem
     state::State
     settings::SolverSettings
@@ -20,7 +20,7 @@ end
 
 make_sys(name = "") = System(name)
 
-function add_body(sys::System, body::Body)
+function add_body!(sys::System, body::Body)
     push!(sys.mbs.bodies, body)
 end
 
