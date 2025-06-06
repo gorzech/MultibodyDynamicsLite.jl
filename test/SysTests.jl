@@ -2,7 +2,11 @@ using MultibodyDynamicsLite
 using Test
 
 @testset "Sys functions: make_sys()" begin
-    @test_nowarn false
+    sys = @test_nowarn make_sys()
+    @test sys isa System
+    @test sys.mbs isa MultibodySystem
+    @test sys.state isa State
+    @test sys.solver_settings isa SolverSettings
 end
 
 @testset "Sys functions: add_body()" begin
@@ -20,4 +24,5 @@ end
 @testset "Sys functions: solve(sys)" begin
     @test_nowarn false
 end
+
 

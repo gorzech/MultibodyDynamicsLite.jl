@@ -1,6 +1,3 @@
-include("AbstractConstraints.jl")
-include("Body.jl")
-
 export MultibodySystem
 
 struct MultibodySystem

@@ -19,8 +19,10 @@ end
 end
 
 @testset "Testing get_index function" begin
+    sys = MultibodySystem()
     b1 = Body([1.0, 2.0, 3.0], [2.0, 0.0, 0.0, 0.0])
     b2 = Body([4.3, -1.0, 2.0], [2.0, 0.0, 0.0, 0.0])
-    bodies = [b1, b2]
-    @test get_index(bodies, b2) == 2
+    push!(sys.bodies, b1)
+    push!(sys.bodies, b2)
+    @test get_index(sys, b2) == 8:14
 end
