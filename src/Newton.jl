@@ -18,7 +18,7 @@ Newton–Raphson solver that throws on bad iterates or no convergence:
 # Throws
 - `ErrorException` if `x` becomes NaN/Inf or if it fails to converge within `maxiter`.
 """
-function newton(f::Function, dfdx::Function, x0::Float64, tol::Float64; maxiter::Int=100)
+function newton(f::Function, dfdx::Function, x0::Float64, tol::Float64=1e-10; maxiter::Int=100)
     x    = x0
     fval = f(x)
     iter = 0
@@ -38,10 +38,6 @@ function newton(f::Function, dfdx::Function, x0::Float64, tol::Float64; maxiter:
     end
 
     return x, iter
-end
-
-function newton(f::Function, dfdx::Function, x0::Float64)
-    return newton(f, dfdx, x0, 1e-10)
 end
 
 function newton(f::Function, dfdx::Function, x0::Float64, settings::SolverSettings)
