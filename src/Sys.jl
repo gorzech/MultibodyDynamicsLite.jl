@@ -1,4 +1,4 @@
-export System, make_sys, add_body!, add_constraint!, set_solver_settings!, constraint, constraint_jacobian, solve_kinematics
+export System, make_sys, add_body!, add_constraint!, set_solver_settings!, constraint, constraint_jacobian, solve_kinematics, velocity
 
 
 mutable struct System
@@ -71,6 +71,29 @@ function constraint_jacobian(sys::System, state::State)
     return jacobian
 end
 
+function constraint_time_derivative(sys::System, state::State)
+    equation_count = 0
+
+    if !isempty(sys.mbs.kinematic_contstraints)
+        equation_count += sum(constraint_num(c) for c in sys.mbs.kinematic_contstraints)
+    end
+
+    offset = equation_count
+
+    if !isempty(sys.mbs.driving_constraints)
+        equation_count += sum(constraint_num(c) for c in sys.mbs.driving_constraints)
+    end
+
+    time_derivative = zeros(equation_count, 1)
+
+    for c in sys.mbs.driving_constraints
+        n = constraint_num(c)
+        time_derivative[offset .+ (1:n), 1] = constraint_time_derivative(c, state)
+        offset += n
+    end
+    return time_derivative
+end
+
 
 function solve_kinematics(sys::System, s0::State, time::Float64) 
     F(q) = constraint(sys, State(time=time, q=q))
@@ -93,6 +116,12 @@ function solve_kinematics(sys::System)
     end
 
     return states
+end
+
+function velocity(sys::System, state::State)
+    J = constraint_jacobian(sys, state)
+    Φt = constraint_time_derivative(sys, state)
+    J \ -Φt
 end
 
 
