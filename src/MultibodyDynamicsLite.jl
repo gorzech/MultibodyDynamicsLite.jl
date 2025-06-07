@@ -8,6 +8,7 @@ include("MultibodySystem.jl")
 include("SolverSettings.jl")
 include("State.jl")
 include("Sys.jl")
+include("Visualiser.jl")
 
 include("constraints/FixedConstraint.jl")
 

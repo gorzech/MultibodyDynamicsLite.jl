@@ -1,3 +1,5 @@
+export draw_frame
+
 using GLMakie
 using LinearAlgebra
 
@@ -18,19 +20,20 @@ function make_voxel!(axis, x, y, z, size=2.0, voxel_function = make_chunk_sphere
     voxels!(axis, xs, ys, zs, cube, is_air = limit_function, color = color)
 end
 
-function visualize_multibody_voxels()
+function draw_frame(sys::MultibodySystem, state::State)
     # Create a scene
     f = Figure()
-    ax = Axis3(f[1, 1])
+    ax = Axis3(f[1, 1], aspect = :data)
 
-    # Define origin ranges for placing the spheres at different locations
-    r1 = (-10,10)
-    r2 = (5,25)  # shift second sphere to avoid overlap
+    for body in sys.bodies
+        coords = state.q[get_index(sys, body)]
+        r = coords[1:3]
+        #e = coords[4:7]
+        make_voxel!(ax, r[1], r[2], r[3], 2.0, make_chunk_sphere, :black)
+    end
 
     # Plot both voxel volumes
-    make_voxel!(ax, 1, 2, 3, 2.0, make_chunk_sphere, :red)
+    #make_voxel!(ax, 1, 2, 3, 2.0, make_chunk_sphere, :red)
 
     display(f)
 end
-
-visualize_multibody_voxels()
