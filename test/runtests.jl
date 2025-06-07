@@ -4,6 +4,7 @@ using LinearAlgebra
 
 include("AbstractConstraintsTests.jl")
 include("BodyTests.jl")
+include("Examples.jl")
 include("MultibodySystemTests.jl")
 include("SolverSettingsTests.jl")
 include("StateTests.jl")
