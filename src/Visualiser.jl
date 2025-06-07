@@ -14,8 +14,8 @@ function assign_voxel_position(x, y, z, size=2.0)
     return (x-hs, x+hs), (y-hs, y+hs), (z-hs, z+hs)
 end
 
-function make_voxel!(axis, x, y, z, size=2.0, voxel_function = make_chunk_sphere::Function, color=:blue)
-    xs, ys, zs = assign_voxel_position(x, y, z, size)
+function make_voxel!(axis, r, size=2.0, voxel_function = make_chunk_sphere::Function, color=:blue)
+    xs, ys, zs = assign_voxel_position(r[1], r[2], r[3], size)
     cube, limit_function = voxel_function(1.0)
     voxels!(axis, xs, ys, zs, cube, is_air = limit_function, color = color)
 end
@@ -29,7 +29,7 @@ function draw_frame(sys::MultibodySystem, state::State)
         coords = state.q[get_index(sys, body)]
         r = coords[1:3]
         #e = coords[4:7]
-        make_voxel!(ax, r[1], r[2], r[3], 2.0, make_chunk_sphere, :black)
+        make_voxel!(ax, r, 2.0, make_chunk_sphere, :black)
     end
 
     # Plot both voxel volumes
