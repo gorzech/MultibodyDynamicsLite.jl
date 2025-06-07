@@ -1,5 +1,6 @@
 using Test
 using MultibodyDynamicsLite
+import MultibodyDynamicsLite: Rq, G, Gwq_local, Gqw_local, Gwq_global, Gqw_global
 
 @testset "State.jl" begin
     @test_nowarn state_test = State(time = 1.0, q = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
@@ -70,3 +71,42 @@ end
     ]
 end
 
+@testset "Testing G function property" begin
+    e = [1.0, 0.0, 0.0, 0.0]
+    G_val = @test_nowarn G(e)
+    
+    @test (G_val * G_val') ≈ I(3)
+    @test (G_val' * G_val) ≈ I(4) - e * e'
+end
+
+@testset "Testing Gwq_local" begin
+    q_local = [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]
+    Gwq = Gwq_local(q_local)
+    @test Gwq[1:3, 1:3] ≈ I(3)
+end
+
+@testset "Testing Gqw_local" begin
+    q_local = [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]
+    Gqw = Gqw_local(q_local)
+    @test Gqw[1:3, 1:3] ≈ I(3)
+end
+
+@testset "Testing Gwq_global" begin
+    r = [0.0, 1.0, 2.0]
+    e = [0.71, 0.0, 0.0, 0.71]
+    bodies = [Body(r, e)]
+    state = init_state(bodies)
+    Gwq = Gwq_global(state)
+    @test Gwq[1:3, 1:3] ≈ I(3)
+    @test Gwq ≈ Gwq_local(state.q[1:7])
+end
+
+@testset "Testing Gqw_global" begin
+    r = [0.0, 1.0, 2.0]
+    e = [0.71, 0.0, 0.0, 0.71]
+    bodies = [Body(r, e)]
+    state = init_state(bodies)
+    Gqw = Gqw_global(state)
+    @test Gqw[1:3, 1:3] ≈ I(3)
+    @test Gqw ≈ Gqw_local(state.q[1:7])
+end
