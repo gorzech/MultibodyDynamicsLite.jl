@@ -20,20 +20,26 @@ function make_voxel!(axis, r, size=2.0, voxel_function = make_chunk_sphere::Func
     voxels!(axis, xs, ys, zs, cube, is_air = limit_function, color = color)
 end
 
-function draw_frame(sys::MultibodySystem, state::State)
+function draw_frame(sys::System, states)
     # Create a scene
     f = Figure()
     ax = Axis3(f[1, 1], aspect = :data)
-
-    for body in sys.bodies
-        coords = state.q[get_index(sys, body)]
-        r = coords[1:3]
-        #e = coords[4:7]
-        make_voxel!(ax, r, 2.0, make_chunk_sphere, :green)
+    limits!(ax, -4..4, -2..2, -2..2)
+    for state in states
+        #add a delay here
+        sleep(0.02)
+        empty!(ax)
+        #ax = Axis3(f[1, 1], aspect = :data)
+        #clear the figure
+        for body in sys.mbs.bodies
+            coords = state.q[get_index(sys.mbs, body)]
+            r = coords[1:3]
+            #e = coords[4:7]
+            make_voxel!(ax, r, 2.0, make_chunk_sphere, :grey)
+        end
+        display(f)
     end
 
     # Plot both voxel volumes
     #make_voxel!(ax, 1, 2, 3, 2.0, make_chunk_sphere, :red)
-
-    display(f)
 end

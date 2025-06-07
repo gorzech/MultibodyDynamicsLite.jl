@@ -8,9 +8,9 @@ using Test
 
     c_driving1 = SimpleDrivingConstraint(sys.mbs, body, 1, t -> sin(2 * π * t))
     sys = add_constraint!(sys, c_driving1)
-    c_fixed2 = FixedConstraint(sys.mbs, body, 2, 2.0)
+    c_fixed2 = FixedConstraint(sys.mbs, body, 2, 0.0)
     sys = add_constraint!(sys, c_fixed2)
-    c_fixed3 = FixedConstraint(sys.mbs, body, 3, 3.0)
+    c_fixed3 = FixedConstraint(sys.mbs, body, 3, 0.0)
     sys = add_constraint!(sys, c_fixed3)
     c_fixed4 = FixedConstraint(sys.mbs, body, 4, 1.0)
     sys = add_constraint!(sys, c_fixed4)
@@ -32,4 +32,6 @@ using Test
         v = velocity(sys, result[i])
         @test v[1] ≈ -2 * π * cos(2 * π * result[i].time)
     end
+
+    draw_frame(sys, result)
 end
