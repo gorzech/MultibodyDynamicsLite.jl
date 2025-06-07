@@ -10,7 +10,7 @@ using Test
         # Test Newton's method with a simple quadratic function
         x1, iter1 = newton(f, dfdx, 10.0)
         x2, iter2 = newton(f2, df2dx, -5.0)
-        
+
         @test x1 ≈ 1.0 atol=1e-10
         @test x2 ≈ -1.0 atol=1e-10
     
@@ -18,6 +18,3 @@ using Test
         @test_nowarn  newton(f, dfdx, 10.0, settings)
     end
 end
-
-
-
