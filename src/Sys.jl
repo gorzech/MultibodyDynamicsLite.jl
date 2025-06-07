@@ -72,18 +72,18 @@ function constraint_jacobian(sys::System, state::State)
 end
 
 
-function solve_kinematics(sys::System, s0::State)   
-    # Solve the kinematic constraints using Newton's method
-    function f(x) 
-        return constraint(sys, State(time = s0.time, q = x))
-    end
+# function solve_kinematics(sys::System, s0::State)   
+#     # Solve the kinematic constraints using Newton's method
+#     function f(x) 
+#         return constraint(sys, State(time = s0.time, q = x))
+#     end
     
-    function dfdx(x)
-        return dfdx(x) = ForwardDiff.jacobian(f, x) 
-    end
+#     function dfdx(x)
+#         return dfdx(x) = ForwardDiff.jacobian(f, x) 
+#     end
          
-    results   = newton(f, dfdx, s0.q, sys.solver_settings)
+#     results   = newton(f, dfdx, s0.q, sys.solver_settings)
     
-    return State(time=s0.time, q=results)
+#     return State(time=s0.time, q=results)
 
-end
+# end
