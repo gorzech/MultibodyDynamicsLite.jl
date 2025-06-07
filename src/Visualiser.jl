@@ -29,7 +29,7 @@ function draw_frame(sys::MultibodySystem, state::State)
         coords = state.q[get_index(sys, body)]
         r = coords[1:3]
         #e = coords[4:7]
-        make_voxel!(ax, r, 2.0, make_chunk_sphere, :black)
+        make_voxel!(ax, r, 2.0, make_chunk_sphere, :green)
     end
 
     # Plot both voxel volumes
