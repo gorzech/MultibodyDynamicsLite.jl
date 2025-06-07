@@ -6,9 +6,7 @@ struct SimpleDrivingConstraint <: DrivingConstraint
 end
 
 SimpleDrivingConstraint(sys::MultibodySystem, body::Body, local_index::Int, fun::Function) = begin
-    if length(methods(fun).ms) == 0 || any(m -> length(m.sig.parameters) != 2, methods(fun).ms)
-        throw(ArgumentError("fun must be a function accepting exactly one argument"))
-    end
+    @assert methods(fun)[1].nargs == 2
     global_index = get_index(sys, body)[local_index]
     return SimpleDrivingConstraint(global_index, fun)
 end
