@@ -26,3 +26,47 @@ end
     push!(sys.bodies, b2)
     @test get_index(sys, b2) == 8:14
 end
+
+@testset "Testing Rq function" begin
+    q_local = [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]
+    R = Rq(q_local)
+    @test R ≈ [
+        1.0 0.0 0.0;
+        0.0 1.0 0.0;
+        0.0 0.0 1.0
+    ]
+end
+
+@testset "Testing Rq function X rotation" begin
+    rot = cos(π/4)
+    q_local = [0.0, 0.0, 0.0, rot, rot, 0.0, 0.0]
+    R = Rq(q_local)
+    @test R ≈ [
+        1.0 0.0  0.0;
+        0.0 0.0 -1.0;
+        0.0 1.0  0.0
+    ]
+end
+
+@testset "Testing Rq function Y rotation" begin
+    rot = cos(π/4)
+    q_local = [0.0, 0.0, 0.0, rot, 0.0, rot, 0.0]
+    R = Rq(q_local)
+    @test R ≈ [
+        0.0 0.0 1.0;
+        0.0 1.0 0.0;
+        -1.0 0.0 0.0
+    ]
+end
+
+@testset "Testing Rq function Z rotation" begin
+    rot = cos(π/4)
+    q_local = [0.0, 0.0, 0.0, rot, 0.0, 0.0, rot]
+    R = Rq(q_local)
+    @test R ≈ [
+        0.0 -1.0 0.0;
+        1.0  0.0 0.0;
+        0.0  0.0 1.0
+    ]
+end
+

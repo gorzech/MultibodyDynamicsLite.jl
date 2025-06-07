@@ -1,4 +1,4 @@
-export State, init_state, get_index
+export State, init_state, get_index, Rq
 
 struct State
     time::Float64
@@ -30,3 +30,14 @@ function get_index(sys::MultibodySystem, body::Body)
     offset = (idx - 1) * 7
     return offset .+ (1:7)
 end
+
+function Rq(q_local::Vector{Float64})
+    @assert length(q_local) == 7 "Expected q to have length 7, got $(length(q))"
+    e0, ex, ey, ez = q_local[4:7]  
+    [
+        2(e0^2 + ex^2) - 1    2(ex * ey - e0 * ez)    2(ex * ez + e0 * ey);
+        2(ex * ey + e0 * ez)  2(e0^2 + ey^2) - 1      2(ey * ez - e0 * ex);
+        2(ex * ez - e0 * ey)  2(ey * ez + e0 * ex)    2(e0^2 + ez^2) - 1
+    ]
+end
+
