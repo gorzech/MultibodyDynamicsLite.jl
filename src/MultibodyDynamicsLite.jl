@@ -10,5 +10,6 @@ include("State.jl")
 include("Sys.jl")
 
 include("constraints/FixedConstraint.jl")
+include("constraints/SimpleDrivingConstraint.jl")
 
 end
