@@ -49,6 +49,6 @@ end
     simple_driving_constraint = SimpleDrivingConstraint(sys.mbs, body, 1, f)
     for t = 0:0.1:1
         state = State(time = t; q = q)
-        @test constraint_time_derivative(simple_driving_constraint, state) ≈ 4t + 1
+        @test constraint_time_derivative(simple_driving_constraint, state) ≈ [4t + 1]
     end
 end

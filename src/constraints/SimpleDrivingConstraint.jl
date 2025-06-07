@@ -24,5 +24,5 @@ function constraint_jacobian(c::SimpleDrivingConstraint, state::State)
 end
 
 function constraint_time_derivative(c::SimpleDrivingConstraint, state::State)
-    dcdt = ForwardDiff.derivative(c.fun, state.time)
+    dcdt = [ForwardDiff.derivative(c.fun, state.time)]
 end
