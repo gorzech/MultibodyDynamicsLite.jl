@@ -10,3 +10,5 @@ include("SolverSettingsTests.jl")
 include("StateTests.jl")
 include("SysTests.jl")
 include("NewtonTests.jl")
+
+include("constraints/SimpleDrivingConstraintTest.jl")
