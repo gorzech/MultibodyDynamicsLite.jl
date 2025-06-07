@@ -1,4 +1,4 @@
-export System, make_sys, add_body!, add_constraint!, set_solver_settings!, constraint, constraint_jacobian
+export System, make_sys, add_body!, add_constraint!, set_solver_settings!, constraint, constraint_jacobian, solve_kinematics
 
 
 mutable struct System
@@ -69,4 +69,21 @@ function constraint_jacobian(sys::System, state::State)
         offset += n
     end
     return jacobian
+end
+
+
+function solve_kinematics(sys::System, s0::State)   
+    # Solve the kinematic constraints using Newton's method
+    function f(x) 
+        return constraint(sys, State(time = s0.time, q = x))
+    end
+    
+    function dfdx(x)
+        return dfdx(x) = ForwardDiff.jacobian(f, x) 
+    end
+         
+    results   = newton(f, dfdx, s0.q, sys.solver_settings)
+    
+    return State(time=s0.time, q=results)
+
 end
