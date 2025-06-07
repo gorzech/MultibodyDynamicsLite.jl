@@ -9,7 +9,7 @@ include("SolverSettings.jl")
 include("State.jl")
 include("Sys.jl")
 
-include("constraints/DriveConstraint.jl")
 include("constraints/FixedConstraint.jl")
+include("constraints/SimpleDrivingConstraint.jl")
 
 end
